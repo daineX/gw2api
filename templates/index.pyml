@@ -1,0 +1,14 @@
+-extends base.pyml
+-placeholder main_content
+    %table
+        -for match in matches
+            %tr
+                %td.red
+                    %a(href: "= '/match/%s/?lang=%s' % (match.match_id, lang)")
+                        =match.red
+                %td.blue
+                    %a(href: "= '/match/%s/?lang=%s' % (match.match_id, lang)")
+                        =match.blue
+                %td.green
+                    %a(href: "= '/match/%s/?lang=%s' % (match.match_id, lang)")
+                        =match.green

@@ -1,0 +1,32 @@
+body {
+    font-family: 'Menomonia', sans-serif;
+}
+
+.blue a, .green a, .red a {
+    color: white;
+    text-decoration: none;
+}
+
+.red {background-color: red; color:white; }
+.green {background-color: green; color:white;}
+.blue {background-color: blue; color:white;}
+
+#maps .map {
+    float: left;
+    margin-left: 15px;
+}
+
+#maps .map .scores {
+    margin-bottom: 15px;
+}
+#maps .map table.objectives thead {
+    border-bottom: 1px solid black;
+}
+
+#maps .map table.objectives td{
+    padding: 2px;
+}
+
+#maps .map table.objectives td.guild {
+    text-align: center;
+}

@@ -1,0 +1,11 @@
+-!!!
+%html
+    %head
+        %title GW2 API Test
+        %meta(charset: "UTF-8")
+        %link(href: 'https://d1h9a8s8eodvjz.cloudfront.net/fonts/menomonia/08-02-12/menomonia.css', rel:'stylesheet', type:'text/css')
+        %link(rel: "stylesheet", type: "text/css", href: "/static/reset.css")
+        %link(rel: "stylesheet", type: "text/css", href: "/static/base.css")
+    %body
+        #content
+            -placeholder main_content

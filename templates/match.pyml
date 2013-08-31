@@ -1,0 +1,37 @@
+-extends base.pyml
+-placeholder main_content
+    #scores
+        Red
+        = scores["red"]
+        Blue
+        = scores["blue"]
+        Green
+        = scores["green"]
+    #maps
+        -for map in maps
+            .map
+                .name
+                    = map.type
+                .scores
+                    %span.red Red
+                        = map.scores["red"]
+                    %span.blue Blue
+                        = map.scores["blue"]
+                    %span.green Green
+                        = map.scores["green"]
+                %table.objectives
+                    %thead
+                        %tr
+                            %th Name
+                            %th Owner
+                            %th Guild
+                    %tbody
+                    -for objective in map.objectives
+                        %tr
+                            %td
+                                = objective.name
+                            %td(class: "= objective.owner.lower")
+                                = objective.owner
+                            %td.guild
+                                -if objective.guild_name
+                                    = objective.guild_name
