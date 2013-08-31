@@ -1,12 +1,12 @@
 -extends base.pyml
 -placeholder main_content
     #scores
-        Red
-        = scores["red"]
-        Blue
-        = scores["blue"]
-        Green
-        = scores["green"]
+        %span.red Red
+            = scores["red"]
+        %span.blue Blue
+            = scores["blue"]
+        %span.green Green
+            = scores["green"]
     #maps
         -for map in maps
             .map
@@ -33,5 +33,8 @@
                             %td(class: "= objective.owner.lower")
                                 = objective.owner
                             %td.guild
-                                -if objective.guild_name
+                                -if objective.owner_guild
+                                    [
+                                    = objective.guild_tag
+                                    ]&nbsp;
                                     = objective.guild_name

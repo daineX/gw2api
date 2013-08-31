@@ -86,6 +86,10 @@ class GuildDetails(APIObject):
         data = self.get_data(guild_id)
         return data["guild_name"]
 
+    def get_tag(self, guild_id):
+        data = self.get_data(guild_id)
+        return data["tag"]
+
 class WvWObjective(object):
 
     def __init__(self, objective_data, lang):
@@ -95,8 +99,10 @@ class WvWObjective(object):
         self.owner_guild = objective_data.get("owner_guild")
         if self.owner_guild:
             self.guild_name = GUILD_DETAILS.get_name(self.owner_guild)
+            self.guild_tag = GUILD_DETAILS.get_tag(self.owner_guild)
         else:
             self.guild_name = None
+            self.guild_tag = None
 
 class WvWMap(object):
 
