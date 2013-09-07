@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 import json
+from multiprocessing import Queue, Process
 import os
+from Queue import Empty as QueueEmpty
 from urllib2 import urlopen
 
 from settings import BASE_DIR
@@ -18,20 +20,30 @@ class APIObject(object):
     def __init__(self):
         self.last_update = datetime.now()
         self.cache = {}
+        self.queue = Queue(20)
+        self.getter = Process(target=self.async_update, args=(self.queue,))
+        self.getter.start()
+
+    def update_cache(self, args):
+        url = self.URL.format(*args)
+        print "APIURL", url
+        data = json.loads(urlopen(url).read())
+        self.cache[args] = data
+        self.last_update = datetime.now()
+
+    def async_update(self, queue):
+        while True:
+            args = queue.get()
+            self.update_cache(args)
 
     def get_data(self, *args):
         now = datetime.now()
-        if ((self.TIMEOUT is not None
-             and now > self.last_update + timedelta(seconds=self.TIMEOUT))
-             or args not in self.cache):
-            url = self.URL.format(*args)
-            print "APIURL", url
-            data = json.loads(urlopen(url).read())
-            self.cache[args] = data
-            self.last_update = now
-            return data
-        else:
-            return self.cache[args]
+        if (self.TIMEOUT is not None
+            and now > self.last_update + timedelta(seconds=self.TIMEOUT)):
+                self.queue.put(args)
+        if args not in self.cache:
+            self.update_cache(args)
+        return self.cache[args]
 
 
 class Match(object):
